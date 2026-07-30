@@ -1,0 +1,17 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# SQLite Database (optional local instance)
+*.db
+*.sqlite3
+
+# Environments & IDEs
+.env
+venv/
+ENV/
+.vscode/
+.idea/
+.DS_Store

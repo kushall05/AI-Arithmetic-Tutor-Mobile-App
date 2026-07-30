@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Arithmetic Tutor – Mobile Learning App</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    
+    <!-- Chart.js for Progress Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <!-- Device Wrapper for Mobile App Viewport simulation or Fullscreen Mode -->
+    <div class="app-shell" id="appShell">
+        
+        <!-- Mobile Header Bar -->
+        <header class="app-header">
+            <div class="header-left" id="headerLeft" onclick="app.showScreen('dashboardScreen')">
+                <div class="brand-logo">🧠</div>
+                <div class="brand-info">
+                    <span class="brand-title">MathTutor AI</span>
+                    <span class="brand-subtitle" id="userGradeDisplay">Grade 3</span>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Streak Badge -->
+                <div class="badge-pill streak-pill" title="Daily Practice Streak" onclick="app.showScreen('progressScreen')">
+                    <span class="pill-icon">🔥</span>
+                    <span class="pill-text" id="streakDisplay">1</span>
+                </div>
+                <!-- XP Points Badge -->
+                <div class="badge-pill xp-pill" title="Total XP Points" onclick="app.showScreen('leaderboardScreen')">
+                    <span class="pill-icon">⭐</span>
+                    <span class="pill-text" id="pointsDisplay">100</span>
+                </div>
+                <!-- Theme Toggle -->
+                <button class="icon-btn theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode" onclick="app.toggleTheme()">
+                    🌙
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Screen Body Container -->
+        <main class="app-content">
+
+            <!-- 1. SPLASH / WELCOME SCREEN -->
+            <section class="screen active" id="splashScreen">
+                <div class="splash-card">
+                    <div class="splash-hero-icon">🧙‍♂️✨</div>
+                    <h1 class="splash-title">AI Arithmetic Tutor</h1>
+                    <p class="splash-desc">Master Addition, Subtraction, Multiplication & Division with your personal AI Math Coach!</p>
+                    
+                    <div class="splash-features">
+                        <div class="feat-item"><span class="feat-icon">🤖</span> AI Step-by-Step Explanations</div>
+                        <div class="feat-item"><span class="feat-icon">💡</span> Interactive Socratic Hints</div>
+                        <div class="feat-item"><span class="feat-icon">🎙️</span> Voice-Based Math Questions</div>
+                        <div class="feat-item"><span class="feat-icon">📊</span> Export PDF Progress Reports</div>
+                    </div>
+
+                    <div class="splash-actions">
+                        <button class="btn btn-primary btn-block btn-lg" onclick="app.openAuthModal('register')">Get Started (Register)</button>
+                        <button class="btn btn-secondary btn-block" onclick="app.openAuthModal('login')">I Already Have an Account</button>
+                        <button class="btn btn-ghost btn-block" onclick="app.loginDemoUser()">🚀 Try Instant Demo Mode</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. HOME DASHBOARD SCREEN -->
+            <section class="screen" id="dashboardScreen">
+                <!-- Greeting & Avatar -->
+                <div class="user-welcome-card">
+                    <div class="welcome-avatar" id="dashAvatar">🦊</div>
+                    <div class="welcome-text">
+                        <h2 id="dashGreeting">Hello, Student! 👋</h2>
+                        <p id="dashSub">Ready for today's arithmetic adventure?</p>
+                    </div>
+                </div>
+
+                <!-- Daily Challenge Banner -->
+                <div class="daily-challenge-card" onclick="app.startDailyChallenge()">
+                    <div class="dc-badge">DAILY CHALLENGE</div>
+                    <h3 id="dcTitle">Daily Math Marathon</h3>
+                    <p id="dcDesc">Solve 3 arithmetic puzzles for +50 Bonus XP!</p>
+                    <div class="dc-footer">
+                        <span class="dc-reward">🎁 Reward: +50 XP</span>
+                        <button class="btn btn-sm btn-light">Start Challenge ⚡</button>
+                    </div>
+                </div>
+
+                <!-- Core Practice Modules -->
+                <div class="section-header">
+                    <h3>Practice Operations</h3>
+                    <span class="section-tag">Choose a Topic</span>
+                </div>
+
+                <div class="operations-grid">
+                    <div class="op-card add-card" onclick="app.startPractice('Addition')">
+                        <div class="op-icon">➕</div>
+                        <div class="op-details">
+                            <h4>Addition</h4>
+                            <span class="op-lvl" id="lvlAddition">Level 1 • Easy</span>
+                        </div>
+                        <div class="op-arrow">➔</div>
+                    </div>
+
+                    <div class="op-card sub-card" onclick="app.startPractice('Subtraction')">
+                        <div class="op-icon">➖</div>
+                        <div class="op-details">
+                            <h4>Subtraction</h4>
+                            <span class="op-lvl" id="lvlSubtraction">Level 1 • Easy</span>
+                        </div>
+                        <div class="op-arrow">➔</div>
+                    </div>
+
+                    <div class="op-card mul-card" onclick="app.startPractice('Multiplication')">
+                        <div class="op-icon">✖️</div>
+                        <div class="op-details">
+                            <h4>Multiplication</h4>
+                            <span class="op-lvl" id="lvlMultiplication">Level 1 • Easy</span>
+                        </div>
+                        <div class="op-arrow">➔</div>
+                    </div>
+
+                    <div class="op-card div-card" onclick="app.startPractice('Division')">
+                        <div class="op-icon">➗</div>
+                        <div class="op-details">
+                            <h4>Division</h4>
+                            <span class="op-lvl" id="lvlDivision">Level 1 • Easy</span>
+                        </div>
+                        <div class="op-arrow">➔</div>
+                    </div>
+                </div>
+
+                <!-- Timed Quiz Module Card -->
+                <div class="quiz-banner-card" onclick="app.startQuizModal()">
+                    <div class="quiz-banner-icon">🏆</div>
+                    <div class="quiz-banner-text">
+                        <h3>Arithmetic Quiz Challenge</h3>
+                        <p>10 Timed Questions • Test your speed and accuracy!</p>
+                    </div>
+                    <button class="btn btn-accent btn-sm">Take Quiz ⏱️</button>
+                </div>
+            </section>
+
+            <!-- 3. PRACTICE SCREEN -->
+            <section class="screen" id="practiceScreen">
+                <!-- Practice Top Header -->
+                <div class="practice-header">
+                    <button class="icon-btn" onclick="app.showScreen('dashboardScreen')">⬅️</button>
+                    <h3 id="practiceTitle">Addition Practice</h3>
+                    <div class="difficulty-picker">
+                        <select id="diffSelect" onchange="app.changeDifficulty(this.value)">
+                            <option value="Easy">Easy</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Hard">Hard</option>
+                            <option value="Challenge">Challenge ⚡</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="question-card">
+                    <div class="q-meta-bar">
+                        <span class="q-counter" id="qCounter">Question 1 of 5</span>
+                        <div class="q-actions-mini">
+                            <button class="btn-tool" onclick="app.toggleVoiceTTS()" title="Read Question Aloud">🔊 Listen</button>
+                            <button class="btn-tool" onclick="app.toggleScratchpad()" title="Open Scratchpad">✏️ Scratchpad</button>
+                        </div>
+                    </div>
+
+                    <div class="math-problem-display" id="questionText">
+                        12 + 15 = ?
+                    </div>
+
+                    <!-- Scratchpad Canvas Container -->
+                    <div class="scratchpad-box hidden" id="scratchpadBox">
+                        <div class="scratchpad-tools">
+                            <span>Scratchpad</span>
+                            <button class="btn btn-xs btn-danger" onclick="app.clearScratchpad()">Clear</button>
+                        </div>
+                        <canvas id="scratchpadCanvas" width="320" height="150"></canvas>
+                    </div>
+
+                    <!-- Multiple Choice Grid -->
+                    <div class="choices-grid" id="choicesGrid">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Voice Input & Hint Bar -->
+                    <div class="interactive-bar">
+                        <button class="btn btn-outline btn-sm" id="hintBtn" onclick="app.requestHint()">
+                            💡 Get AI Hint
+                        </button>
+                        <button class="btn btn-outline btn-sm voice-input-btn" id="voiceInputBtn" onclick="app.startVoiceRecognition()">
+                            🎙️ Speak Answer
+                        </button>
+                    </div>
+
+                    <!-- Hint Box -->
+                    <div class="hint-card hidden" id="hintCard">
+                        <div class="hint-header">
+                            <span>💡 Socratic AI Hint</span>
+                            <button class="close-xs" onclick="document.getElementById('hintCard').classList.add('hidden')">×</button>
+                        </div>
+                        <div class="hint-text" id="hintContent">Think about place values...</div>
+                    </div>
+                </div>
+
+                <!-- Instant Feedback Popup / Card -->
+                <div class="feedback-modal hidden" id="feedbackModal">
+                    <div class="feedback-card" id="feedbackCard">
+                        <div class="fb-icon" id="fbIcon">✅</div>
+                        <h3 id="fbTitle">Correct!</h3>
+                        <p id="fbSub">+10 XP Earned!</p>
+                        
+                        <!-- AI Mistake Explanation Container -->
+                        <div class="ai-explanation-box hidden" id="aiExplanationBox">
+                            <div class="ai-exp-header">
+                                <span>🦉 Professor Owl's Explanation</span>
+                            </div>
+                            <div class="ai-exp-content" id="aiExpContent"></div>
+                        </div>
+
+                        <div class="fb-actions">
+                            <button class="btn btn-primary btn-block" id="nextQuestionBtn" onclick="app.nextPracticeQuestion()">Next Question ➔</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. AI TUTOR SCREEN -->
+            <section class="screen" id="tutorScreen">
+                <div class="tutor-header">
+                    <div class="tutor-avatar">🧙‍♂️</div>
+                    <div class="tutor-info">
+                        <h3>Professor Owl - AI Tutor</h3>
+                        <p>Ask me math questions or get step-by-step help!</p>
+                    </div>
+                </div>
+
+                <!-- Chat History Window -->
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-bubble bot-bubble">
+                        <div class="bubble-sender">🦉 Professor Owl</div>
+                        <div class="bubble-text">
+                            Hello! I am your AI Math Tutor. Need help solving a tricky arithmetic problem or understanding a math concept? Ask me anything!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input Bar -->
+                <div class="chat-input-bar">
+                    <input type="text" id="chatInput" placeholder="Ask a math question... e.g. Why is 8 x 7 = 56?" onkeypress="if(event.key==='Enter') app.sendChatMessage()">
+                    <button class="btn btn-primary" onclick="app.sendChatMessage()">Send 🚀</button>
+                </div>
+            </section>
+
+            <!-- 5. QUIZ SCREEN -->
+            <section class="screen" id="quizScreen">
+                <div class="quiz-top-bar">
+                    <div class="quiz-timer" id="quizTimer">⏱️ 01:00</div>
+                    <div class="quiz-score" id="quizLiveScore">Score: 0/10</div>
+                </div>
+
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quizProgressFill" style="width: 10%;"></div>
+                </div>
+
+                <div class="question-card quiz-q-card">
+                    <span class="q-counter" id="quizQCounter">Question 1 of 10</span>
+                    <div class="math-problem-display" id="quizQuestionText">15 × 4 = ?</div>
+                    <div class="choices-grid" id="quizChoicesGrid"></div>
+                </div>
+            </section>
+
+            <!-- 6. RESULTS SCREEN -->
+            <section class="screen" id="resultsScreen">
+                <div class="results-card">
+                    <div class="results-trophy" id="resultsEmoji">🏆</div>
+                    <h2 id="resultsTitle">Quiz Completed!</h2>
+                    <p id="resultsSub">Great job practicing arithmetic today!</p>
+
+                    <div class="results-stats-row">
+                        <div class="res-stat-box">
+                            <span class="stat-num" id="resScoreText">8 / 10</span>
+                            <span class="stat-lbl">Score</span>
+                        </div>
+                        <div class="res-stat-box">
+                            <span class="stat-num" id="resAccText">80%</span>
+                            <span class="stat-lbl">Accuracy</span>
+                        </div>
+                        <div class="res-stat-box">
+                            <span class="stat-num" id="resXPText">+90 XP</span>
+                            <span class="stat-lbl">Reward</span>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-primary btn-block" onclick="app.showScreen('dashboardScreen')">Return to Dashboard</button>
+                        <button class="btn btn-secondary btn-block" onclick="app.showScreen('progressScreen')">View Detailed Progress</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. PROGRESS & ANALYTICS SCREEN -->
+            <section class="screen" id="progressScreen">
+                <div class="screen-title-bar">
+                    <h2>📊 Learning Progress & Analytics</h2>
+                    <button class="btn btn-xs btn-outline" onclick="app.downloadPDFReport()">📄 Export PDF Report</button>
+                </div>
+
+                <!-- Mastery Bars -->
+                <div class="progress-card">
+                    <h3>Operation Mastery</h3>
+                    
+                    <div class="mastery-item">
+                        <div class="m-label"><span>➕ Addition</span> <span id="addAccLabel">90%</span></div>
+                        <div class="m-bar"><div class="m-fill add-fill" id="addBarFill" style="width: 90%;"></div></div>
+                    </div>
+
+                    <div class="mastery-item">
+                        <div class="m-label"><span>➖ Subtraction</span> <span id="subAccLabel">80%</span></div>
+                        <div class="m-bar"><div class="m-fill sub-fill" id="subBarFill" style="width: 80%;"></div></div>
+                    </div>
+
+                    <div class="mastery-item">
+                        <div class="m-label"><span>✖️ Multiplication</span> <span id="mulAccLabel">75%</span></div>
+                        <div class="m-bar"><div class="m-fill mul-fill" id="mulBarFill" style="width: 75%;"></div></div>
+                    </div>
+
+                    <div class="mastery-item">
+                        <div class="m-label"><span>➗ Division</span> <span id="divAccLabel">70%</span></div>
+                        <div class="m-bar"><div class="m-fill div-fill" id="divBarFill" style="width: 70%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Chart Box -->
+                <div class="chart-card">
+                    <h3>Performance Accuracy Chart</h3>
+                    <canvas id="progressChart" width="300" height="200"></canvas>
+                </div>
+            </section>
+
+            <!-- 8. LEADERBOARD & BADGES SCREEN -->
+            <section class="screen" id="leaderboardScreen">
+                <div class="tab-header">
+                    <button class="tab-btn active" id="tabLeaderboard" onclick="app.switchTab('leaderboard')">🏆 Leaderboard</button>
+                    <button class="tab-btn" id="tabBadges" onclick="app.switchTab('badges')">🏅 Badges</button>
+                </div>
+
+                <div class="tab-content" id="leaderboardTabContent">
+                    <div class="leaderboard-list" id="leaderboardList">
+                        <!-- Loaded via JS -->
+                    </div>
+                </div>
+
+                <div class="tab-content hidden" id="badgesTabContent">
+                    <div class="badges-grid" id="badgesGrid">
+                        <!-- Loaded via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. PROFILE & SETTINGS SCREEN -->
+            <section class="screen" id="profileScreen">
+                <div class="screen-title-bar">
+                    <h2>⚙️ Profile & Settings</h2>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-avatar-box">
+                        <span class="avatar-large" id="profileAvatar">🦊</span>
+                        <button class="btn btn-xs btn-light" onclick="app.openAvatarPicker()">Change Avatar</button>
+                    </div>
+                    <h3 id="profileName">DemoStudent</h3>
+                    <p id="profileEmail">demo@tutor.com</p>
+                </div>
+
+                <div class="settings-group">
+                    <h4>Settings</h4>
+                    
+                    <div class="setting-row">
+                        <label>Grade Level</label>
+                        <select id="settingGrade" onchange="app.saveProfileSettings()">
+                            <option value="Grade 1">Grade 1</option>
+                            <option value="Grade 2">Grade 2</option>
+                            <option value="Grade 3">Grade 3</option>
+                            <option value="Grade 4">Grade 4</option>
+                            <option value="Grade 5">Grade 5</option>
+                            <option value="Grade 6">Grade 6</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-row">
+                        <label>Gemini API Key (Optional)</label>
+                        <input type="password" id="settingApiKey" placeholder="AI Key for live Gemini" onchange="app.saveProfileSettings()">
+                    </div>
+
+                    <div class="setting-row">
+                        <label>App Theme</label>
+                        <button class="btn btn-sm btn-outline" onclick="app.toggleTheme()">Toggle Dark Mode</button>
+                    </div>
+                </div>
+
+                <div class="settings-actions">
+                    <button class="btn btn-primary btn-block" onclick="app.downloadPDFReport()">📄 Download PDF Performance Report</button>
+                    <button class="btn btn-danger btn-block" onclick="app.logout()">Log Out</button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bottom Mobile Navigation Bar -->
+        <nav class="app-navbar" id="appNavbar">
+            <button class="nav-item active" id="navDash" onclick="app.showScreen('dashboardScreen')">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" id="navPractice" onclick="app.startPractice('Addition')">
+                <span class="nav-icon">✏️</span>
+                <span class="nav-label">Practice</span>
+            </button>
+            <button class="nav-item" id="navTutor" onclick="app.showScreen('tutorScreen')">
+                <span class="nav-icon">🦉</span>
+                <span class="nav-label">AI Tutor</span>
+            </button>
+            <button class="nav-item" id="navProgress" onclick="app.showScreen('progressScreen')">
+                <span class="nav-icon">📊</span>
+                <span class="nav-label">Progress</span>
+            </button>
+            <button class="nav-item" id="navProfile" onclick="app.showScreen('profileScreen')">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Profile</span>
+            </button>
+        </nav>
+
+    </div>
+
+    <!-- Auth Modal Container -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="app.closeAuthModal()">×</button>
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLoginBtn" onclick="app.switchAuthTab('login')">Log In</button>
+                <button class="auth-tab" id="tabRegisterBtn" onclick="app.switchAuthTab('register')">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form" onsubmit="app.handleLogin(event)">
+                <div class="form-group">
+                    <label>Username or Email</label>
+                    <input type="text" id="loginUsername" required placeholder="e.g. DemoStudent">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign In 🚀</button>
+            </form>
+
+            <!-- Register Form -->
+            <form id="registerForm" class="auth-form hidden" onsubmit="app.handleRegister(event)">
+                <div class="form-group">
+                    <label>Student Username</label>
+                    <input type="text" id="regUsername" required placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="student@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Grade Level</label>
+                    <select id="regGrade">
+                        <option value="Grade 1">Grade 1</option>
+                        <option value="Grade 2">Grade 2</option>
+                        <option value="Grade 3" selected>Grade 3</option>
+                        <option value="Grade 4">Grade 4</option>
+                        <option value="Grade 5">Grade 5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account 🎉</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JS Application Modules -->
+    <script src="/static/js/voice.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
