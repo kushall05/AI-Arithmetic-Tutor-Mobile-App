@@ -4,8 +4,8 @@
 
 :root {
     /* Cool Soothing Accent Colors */
-    --primary: #5558E6;
-    --primary-hover: #4338CA;
+    --primary: #6366F1;
+    --primary-hover: #4F46E5;
     --primary-gradient: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
     --accent-gold: #D97706;
     --accent-gold-gradient: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
@@ -13,31 +13,8 @@
     --danger: #DC2626;
     --info: #0891B2;
 
-    /* ☀️ EYE-FRIENDLY COOL DAY MODE TOKENS */
-    --bg-app: #EBF0F6;                /* Soft cool slate ice - No harsh glare */
-    --bg-mesh-1: rgba(99, 102, 241, 0.05);
-    --bg-mesh-2: rgba(8, 145, 178, 0.05);
-    --bg-card: #F8FAFC;               /* Soothing soft porcelain */
-    --bg-card-subtle: #E2E8F0;        /* Muted cool gray fill */
-    --bg-header: rgba(248, 250, 252, 0.92);
-    --text-main: #1E293B;             /* Deep slate text for high readability */
-    --text-muted: #64748B;
-    --border-color: #CBD5E1;          /* Gentle subtle border */
-    --border-highlight: rgba(99, 102, 241, 0.25);
-    --shadow-sm: 0 2px 8px rgba(30, 41, 59, 0.04);
-    --shadow-md: 0 8px 24px rgba(30, 41, 59, 0.08);
-    --shadow-lg: 0 16px 36px rgba(30, 41, 59, 0.12);
-    --glass-bg: rgba(248, 250, 252, 0.9);
-    --glass-border: rgba(203, 213, 225, 0.6);
-    --radius-sm: 12px;
-    --radius-md: 18px;
-    --radius-lg: 26px;
-    --radius-full: 9999px;
-}
-
-[data-theme="dark"] {
-    /* 🌙 SOOTHING NIGHT MODE TOKENS */
-    --bg-app: #0D131E;                /* Deep midnight slate */
+    /* 🌙 EXCLUSIVE NIGHT MODE TOKENS (SOOTHING DARK NAVY) */
+    --bg-app: #0D131E;                /* Deep midnight slate - Anti-glare */
     --bg-mesh-1: rgba(99, 102, 241, 0.12);
     --bg-mesh-2: rgba(6, 182, 212, 0.08);
     --bg-card: #162030;               /* Soothing dark slate navy */
@@ -45,13 +22,17 @@
     --bg-header: rgba(22, 32, 48, 0.92);
     --text-main: #E2E8F0;             /* Soft off-white text - Anti-glare */
     --text-muted: #94A3B8;
-    --border-color: #28374E;
+    --border-color: #28374E;          /* Subtle dark navy border */
     --border-highlight: rgba(129, 140, 248, 0.25);
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
     --glass-bg: rgba(22, 32, 48, 0.9);
     --glass-border: rgba(255, 255, 255, 0.08);
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 26px;
+    --radius-full: 9999px;
 }
 
 /* Global Reset & Smooth Transition Engine */
