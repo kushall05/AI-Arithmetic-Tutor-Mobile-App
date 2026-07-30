@@ -4,10 +4,14 @@ import os
 import hashlib
 from datetime import datetime, date
 
-DB_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "tutor.db")
+def get_db_path():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    if os.environ.get("VERCEL") or not os.access(base_dir, os.W_OK):
+        return "/tmp/tutor.db"
+    return os.path.join(base_dir, "tutor.db")
 
 def get_db_connection():
-    conn = sqlite3.connect(DB_FILE)
+    conn = sqlite3.connect(get_db_path())
     conn.row_factory = sqlite3.Row
     return conn
 
