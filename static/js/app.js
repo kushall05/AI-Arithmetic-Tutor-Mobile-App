@@ -32,6 +32,7 @@ const app = {
     chartInstance: null,
 
     init() {
+        this.loadTheme();
         this.checkLocalUser();
         this.initScratchpad();
     },
@@ -839,12 +840,17 @@ const app = {
     },
 
     // --- THEME & UTILITIES ---
+    loadTheme() {
+        const savedTheme = localStorage.getItem('tutor_theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    },
+
     toggleTheme() {
         const html = document.documentElement;
         const current = html.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         html.setAttribute('data-theme', next);
-        document.getElementById('themeToggleBtn').textContent = next === 'dark' ? '☀️' : '🌙';
+        localStorage.setItem('tutor_theme', next);
     },
 
     formatMarkdownText(text) {

@@ -60,10 +60,14 @@
                     <span class="pill-icon">⭐</span>
                     <span class="pill-text" id="pointsDisplay">100</span>
                 </div>
-                <!-- Theme Toggle -->
-                <button class="icon-btn theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode" onclick="app.toggleTheme()">
-                    🌙
-                </button>
+                <!-- Day / Night Mode Pill Toggle -->
+                <div class="day-night-toggle" id="themeToggleBtn" title="Toggle Day (Sun) / Night (Moon) Mode" onclick="app.toggleTheme()">
+                    <div class="toggle-track">
+                        <span>☀️</span>
+                        <span>🌙</span>
+                    </div>
+                    <div class="toggle-thumb" id="toggleThumb"></div>
+                </div>
             </div>
         </header>
 
