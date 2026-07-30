@@ -1,34 +1,34 @@
 /* ==========================================================================
-   AI ARITHMETIC TUTOR - ULTRA-SMOOTH DAY & NIGHT DESIGN SYSTEM
+   AI ARITHMETIC TUTOR - EYE-FRIENDLY COOL COLOR DESIGN SYSTEM
    ========================================================================== */
 
 :root {
-    /* Brand Accent Colors */
-    --primary: #6366F1;
-    --primary-hover: #4F46E5;
+    /* Cool Soothing Accent Colors */
+    --primary: #5558E6;
+    --primary-hover: #4338CA;
     --primary-gradient: linear-gradient(135deg, #6366F1 0%, #4338CA 100%);
-    --accent-gold: #F59E0B;
-    --accent-gold-gradient: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
-    --success: #10B981;
-    --danger: #EF4444;
-    --info: #06B6D4;
+    --accent-gold: #D97706;
+    --accent-gold-gradient: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    --success: #059669;
+    --danger: #DC2626;
+    --info: #0891B2;
 
-    /* ☀️ DAY MODE (LIGHT THEME) TOKENS */
-    --bg-app: #F4F6FB;
-    --bg-mesh-1: rgba(99, 102, 241, 0.08);
-    --bg-mesh-2: rgba(245, 158, 11, 0.06);
-    --bg-card: #FFFFFF;
-    --bg-card-subtle: #F8FAFC;
-    --bg-header: rgba(255, 255, 255, 0.88);
-    --text-main: #0F172A;
+    /* ☀️ EYE-FRIENDLY COOL DAY MODE TOKENS */
+    --bg-app: #EBF0F6;                /* Soft cool slate ice - No harsh glare */
+    --bg-mesh-1: rgba(99, 102, 241, 0.05);
+    --bg-mesh-2: rgba(8, 145, 178, 0.05);
+    --bg-card: #F8FAFC;               /* Soothing soft porcelain */
+    --bg-card-subtle: #E2E8F0;        /* Muted cool gray fill */
+    --bg-header: rgba(248, 250, 252, 0.92);
+    --text-main: #1E293B;             /* Deep slate text for high readability */
     --text-muted: #64748B;
-    --border-color: #E2E8F0;
-    --border-highlight: rgba(99, 102, 241, 0.2);
-    --shadow-sm: 0 2px 10px rgba(15, 23, 42, 0.04);
-    --shadow-md: 0 10px 30px rgba(99, 102, 241, 0.1);
-    --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.12);
-    --glass-bg: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(255, 255, 255, 0.6);
+    --border-color: #CBD5E1;          /* Gentle subtle border */
+    --border-highlight: rgba(99, 102, 241, 0.25);
+    --shadow-sm: 0 2px 8px rgba(30, 41, 59, 0.04);
+    --shadow-md: 0 8px 24px rgba(30, 41, 59, 0.08);
+    --shadow-lg: 0 16px 36px rgba(30, 41, 59, 0.12);
+    --glass-bg: rgba(248, 250, 252, 0.9);
+    --glass-border: rgba(203, 213, 225, 0.6);
     --radius-sm: 12px;
     --radius-md: 18px;
     --radius-lg: 26px;
@@ -36,21 +36,21 @@
 }
 
 [data-theme="dark"] {
-    /* 🌙 NIGHT MODE (DARK THEME) TOKENS */
-    --bg-app: #0B0F19;
-    --bg-mesh-1: rgba(99, 102, 241, 0.15);
-    --bg-mesh-2: rgba(168, 85, 247, 0.12);
-    --bg-card: #151D30;
-    --bg-card-subtle: #1E293B;
-    --bg-header: rgba(21, 29, 48, 0.88);
-    --text-main: #F8FAFC;
+    /* 🌙 SOOTHING NIGHT MODE TOKENS */
+    --bg-app: #0D131E;                /* Deep midnight slate */
+    --bg-mesh-1: rgba(99, 102, 241, 0.12);
+    --bg-mesh-2: rgba(6, 182, 212, 0.08);
+    --bg-card: #162030;               /* Soothing dark slate navy */
+    --bg-card-subtle: #1F2C40;        /* Muted dark fill */
+    --bg-header: rgba(22, 32, 48, 0.92);
+    --text-main: #E2E8F0;             /* Soft off-white text - Anti-glare */
     --text-muted: #94A3B8;
-    --border-color: #26334D;
-    --border-highlight: rgba(129, 140, 248, 0.3);
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 20px 45px rgba(0, 0, 0, 0.6);
-    --glass-bg: rgba(21, 29, 48, 0.85);
+    --border-color: #28374E;
+    --border-highlight: rgba(129, 140, 248, 0.25);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 16px 36px rgba(0, 0, 0, 0.6);
+    --glass-bg: rgba(22, 32, 48, 0.9);
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
@@ -78,20 +78,19 @@ body {
     position: relative;
 }
 
-/* Dynamic Background Glow Ambient Orbs */
+/* Ambient Eye-Friendly Glow Orbs */
 body::before, body::after {
     content: '';
     position: fixed;
     border-radius: 50%;
-    filter: blur(80px);
+    filter: blur(90px);
     z-index: 0;
     pointer-events: none;
-    transition: background 0.6s ease;
 }
 
 body::before {
-    width: 320px;
-    height: 320px;
+    width: 340px;
+    height: 340px;
     top: -60px;
     left: -60px;
     background: var(--bg-mesh-1);
@@ -124,7 +123,7 @@ body::after {
     .app-shell {
         border-radius: var(--radius-lg);
         height: 94vh;
-        border: 1px solid var(--glass-border);
+        border: 1px solid var(--border-color);
     }
 }
 
@@ -202,18 +201,18 @@ body::after {
 }
 
 .streak-pill {
-    background: rgba(245, 158, 11, 0.15);
-    color: #F59E0B;
-    border: 1px solid rgba(245, 158, 11, 0.3);
+    background: rgba(217, 119, 6, 0.12);
+    color: #D97706;
+    border: 1px solid rgba(217, 119, 6, 0.25);
 }
 
 .xp-pill {
-    background: rgba(99, 102, 241, 0.15);
+    background: rgba(99, 102, 241, 0.12);
     color: var(--primary);
-    border: 1px solid rgba(99, 102, 241, 0.3);
+    border: 1px solid rgba(99, 102, 241, 0.25);
 }
 
-/* Modern Animated Day/Night Mode Switcher Pill */
+/* Day/Night Mode Switcher Pill */
 .day-night-toggle {
     display: flex;
     align-items: center;
@@ -225,7 +224,6 @@ body::after {
     position: relative;
     width: 60px;
     height: 32px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.06);
 }
 
 .toggle-track {
@@ -472,7 +470,7 @@ body::after {
 }
 
 .daily-challenge-card {
-    background: linear-gradient(135deg, #4338CA 0%, #6366F1 100%);
+    background: linear-gradient(135deg, #3730A3 0%, #4F46E5 100%);
     color: white;
     padding: 20px;
     border-radius: var(--radius-lg);
@@ -685,7 +683,7 @@ body::after {
     font-size: 38px;
     font-weight: 800;
     text-align: center;
-    padding: 26px 10px;
+    padding: 24px 10px;
     background: var(--bg-card-subtle);
     border-radius: var(--radius-md);
     margin-bottom: 20px;
@@ -730,13 +728,13 @@ body::after {
 
 .choice-btn.correct {
     border-color: var(--success);
-    background: rgba(16, 185, 129, 0.18);
+    background: rgba(5, 150, 105, 0.15);
     color: var(--success);
 }
 
 .choice-btn.incorrect {
     border-color: var(--danger);
-    background: rgba(239, 68, 68, 0.18);
+    background: rgba(220, 38, 38, 0.15);
     color: var(--danger);
 }
 
@@ -748,9 +746,9 @@ body::after {
 
 .hint-card {
     margin-top: 14px;
-    background: #FFFBEB;
-    border: 1px solid #FCD34D;
-    color: #92400E;
+    background: #FEF3C7;
+    border: 1px solid #F59E0B;
+    color: #78350F;
     padding: 14px;
     border-radius: var(--radius-md);
     font-size: 12.5px;
@@ -759,8 +757,8 @@ body::after {
 }
 
 [data-theme="dark"] .hint-card {
-    background: #2E1A05;
-    border-color: #78350F;
+    background: #2D2010;
+    border-color: #B45309;
     color: #FDE68A;
 }
 
@@ -786,7 +784,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(11, 15, 25, 0.7);
+    background: rgba(13, 19, 30, 0.75);
     backdrop-filter: blur(8px);
     z-index: 100;
     display: flex;
@@ -855,7 +853,7 @@ body::after {
 }
 
 #scratchpadCanvas {
-    background: #FFFFFF;
+    background: #F1F5F9;
     border-radius: var(--radius-sm);
     touch-action: none;
     cursor: crosshair;
@@ -1091,10 +1089,10 @@ body::after {
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.add-fill { background: #10B981; }
+.add-fill { background: #059669; }
 .sub-fill { background: #6366F1; }
-.mul-fill { background: #F59E0B; }
-.div-fill { background: #EC4899; }
+.mul-fill { background: #D97706; }
+.div-fill { background: #0891B2; }
 
 /* 8. Leaderboard & Badges */
 .tab-header {
@@ -1190,7 +1188,7 @@ body::after {
     opacity: 1;
     filter: grayscale(0);
     border-color: var(--accent-gold);
-    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.15);
+    box-shadow: 0 6px 16px rgba(217, 119, 6, 0.15);
 }
 
 .badge-icon {
@@ -1310,7 +1308,7 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(11, 15, 25, 0.7);
+    background: rgba(13, 19, 30, 0.75);
     backdrop-filter: blur(8px);
     z-index: 200;
     display: flex;
